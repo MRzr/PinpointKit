@@ -1,5 +1,5 @@
 //
-//  FeedbackConfiguration.swift
+//  PinpointFeedbackConfiguration.swift
 //  Pods
 //
 //  Created by Michael Liberatore on 7/8/16.
@@ -9,7 +9,7 @@
 import UIKit
 
 /// Encapsulates configuration properties for all feedback to be sent.
-public struct FeedbackConfiguration {
+public struct PinpointFeedbackConfiguration {
     
     /// Encapsulates body content of the feedback submission. Suitable for an email body.
     public struct Body {
@@ -56,7 +56,7 @@ public struct FeedbackConfiguration {
     public let presentationStyle: UIModalPresentationStyle
     
     /**
-     Initializes a `FeedbackConfiguration` with optional default values.
+     Initializes a `PinpointFeedbackConfiguration` with optional default values.
      
      - parameter screenshotFileName:     The file name of the screenshot.
      - parameter recipients:             The recipients of the feedback submission.
@@ -68,7 +68,7 @@ public struct FeedbackConfiguration {
      */
     public init(screenshotFileName: String = "Screenshot",
                 recipients: [String],
-                title: String? = FeedbackConfiguration.DefaultTitle,
+                title: String? = PinpointFeedbackConfiguration.DefaultTitle,
                 body: Body? = nil,
                 logsFileName: String = "logs",
                 additionalInformation: [String: AnyObject]? = nil,

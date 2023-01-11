@@ -1,5 +1,5 @@
 //
-//  FeedbackViewController.swift
+//  PinpointFeedbackViewController.swift
 //  PinpointKit
 //
 //  Created by Brian Capps on 2/5/16.
@@ -9,8 +9,8 @@
 import UIKit
 import PhotosUI
 
-/// A `UITableViewController` that conforms to `FeedbackCollector` in order to display an interface that allows the user to see, change, and send feedback.
-public final class FeedbackViewController: UITableViewController {
+/// A `UITableViewController` that conforms to `PinpointFeedbackCollector` in order to display an interface that allows the user to see, change, and send feedback.
+public final class PinpointFeedbackViewController: UITableViewController {
     
     // MARK: - InterfaceCustomizable
     
@@ -28,12 +28,12 @@ public final class FeedbackViewController: UITableViewController {
     public var logCollector: LogCollector?
     public var editor: Editor?
     
-    // MARK: - FeedbackCollector
+    // MARK: - PinpointFeedbackCollector
     
-    public weak var feedbackDelegate: FeedbackCollectorDelegate?
-    public var feedbackConfiguration: FeedbackConfiguration?
+    public weak var feedbackDelegate: PinpointFeedbackCollectorDelegate?
+    public var feedbackConfiguration: PinpointFeedbackConfiguration?
     
-    // MARK: - FeedbackViewController
+    // MARK: - PinpointFeedbackViewController
     
     /// The screenshot the feedback describes.
     public var screenshot: UIImage? {
@@ -51,7 +51,7 @@ public final class FeedbackViewController: UITableViewController {
         }
     }
     
-    private var dataSource: FeedbackTableViewDataSource? {
+    private var dataSource: PinpointFeedbackTableViewDataSource? {
         didSet {
             guard isViewLoaded else { return }
             tableView.dataSource = dataSource
@@ -105,13 +105,13 @@ public final class FeedbackViewController: UITableViewController {
         updateInterfaceCustomization()
     }
     
-    // MARK: - FeedbackViewController
+    // MARK: - PinpointFeedbackViewController
     
     private func updateDataSource() {
         guard let interfaceCustomization = interfaceCustomization else { assertionFailure(); return }
         let screenshotToDisplay = annotatedScreenshot ?? screenshot
 
-        dataSource = FeedbackTableViewDataSource(interfaceCustomization: interfaceCustomization, screenshot: screenshotToDisplay, logSupporting: self, userEnabledLogCollection: userEnabledLogCollection, delegate: self)
+        dataSource = PinpointFeedbackTableViewDataSource(interfaceCustomization: interfaceCustomization, screenshot: screenshotToDisplay, logSupporting: self, userEnabledLogCollection: userEnabledLogCollection, delegate: self)
     }
     
     private func updateInterfaceCustomization() {
@@ -125,7 +125,7 @@ public final class FeedbackViewController: UITableViewController {
             .foregroundColor: appearance.navigationTitleColor
         ]
         
-        let sendBarButtonItem = UIBarButtonItem(title: interfaceText.feedbackSendButtonTitle, style: .done, target: self, action: #selector(FeedbackViewController.sendButtonTapped))
+        let sendBarButtonItem = UIBarButtonItem(title: interfaceText.feedbackSendButtonTitle, style: .done, target: self, action: #selector(PinpointFeedbackViewController.sendButtonTapped))
         sendBarButtonItem.setTitleTextAttributesForAllStates([.font: appearance.feedbackSendButtonFont])
         navigationItem.rightBarButtonItem = sendBarButtonItem
         
@@ -134,7 +134,7 @@ public final class FeedbackViewController: UITableViewController {
         navigationItem.backBarButtonItem = backBarButtonItem
         
         let cancelBarButtonItem: UIBarButtonItem
-        let cancelAction = #selector(FeedbackViewController.cancelButtonTapped)
+        let cancelAction = #selector(PinpointFeedbackViewController.cancelButtonTapped)
         if let cancelButtonTitle = interfaceText.feedbackCancelButtonTitle {
             cancelBarButtonItem = UIBarButtonItem(title: cancelButtonTitle, style: .plain, target: self, action: cancelAction)
         } else {
@@ -162,12 +162,12 @@ public final class FeedbackViewController: UITableViewController {
         
         let logs = userEnabledLogCollection ? logCollector?.retrieveLogs() : nil
         
-        let feedback: Feedback?
+        let feedback: PinpointFeedback?
         
         if let screenshot = annotatedScreenshot {
-            feedback = Feedback(screenshot: .annotated(image: screenshot), logs: logs, configuration: feedbackConfiguration)
+            feedback = PinpointFeedback(screenshot: .annotated(image: screenshot), logs: logs, configuration: feedbackConfiguration)
         } else if let screenshot = screenshot {
-            feedback = Feedback(screenshot: .original(image: screenshot), logs: logs, configuration: feedbackConfiguration)
+            feedback = PinpointFeedback(screenshot: .original(image: screenshot), logs: logs, configuration: feedbackConfiguration)
         } else {
             feedback = nil
         }
@@ -179,7 +179,7 @@ public final class FeedbackViewController: UITableViewController {
     
     @objc private func cancelButtonTapped() {
         guard presentingViewController != nil else {
-            assertionFailure("Attempting to dismiss `FeedbackViewController` in unexpected presentation context.")
+            assertionFailure("Attempting to dismiss `PinpointFeedbackViewController` in unexpected presentation context.")
             return
         }
         
@@ -187,10 +187,10 @@ public final class FeedbackViewController: UITableViewController {
     }
 }
 
-// MARK: - FeedbackCollector
+// MARK: - PinpointFeedbackCollector
 
-extension FeedbackViewController: FeedbackCollector {
-    public func collectFeedback(with screenshot: UIImage?, from viewController: UIViewController) {
+extension PinpointFeedbackViewController: PinpointFeedbackCollector {
+    public func collectPinpointFeedback(with screenshot: UIImage?, from viewController: UIViewController) {
         self.screenshot = screenshot
         annotatedScreenshot = nil
         viewController.showDetailViewController(self, sender: viewController)
@@ -199,7 +199,7 @@ extension FeedbackViewController: FeedbackCollector {
 
 // MARK: - EditorDelegate
 
-extension FeedbackViewController: EditorDelegate {
+extension PinpointFeedbackViewController: EditorDelegate {
     public func editorWillDismiss(_ editor: Editor, with screenshot: UIImage) {
         annotatedScreenshot = screenshot
         tableView.reloadData()
@@ -208,7 +208,7 @@ extension FeedbackViewController: EditorDelegate {
 
 // MARK: - UITableViewDelegate
 
-extension FeedbackViewController {
+extension PinpointFeedbackViewController {
     public override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         guard let logCollector = logCollector else {
             assertionFailure("No log collector exists.")
@@ -234,11 +234,11 @@ extension FeedbackViewController {
     }
 }
 
-// MARK: - FeedbackTableViewDataSourceDelegate
+// MARK: - PinpointFeedbackTableViewDataSourceDelegate
 
-extension FeedbackViewController: FeedbackTableViewDataSourceDelegate {
+extension PinpointFeedbackViewController: PinpointFeedbackTableViewDataSourceDelegate {
     
-    func feedbackTableViewDataSource(feedbackTableViewDataSource: FeedbackTableViewDataSource, didTapScreenshot screenshot: UIImage) {
+    func feedbackTableViewDataSource(feedbackTableViewDataSource: PinpointFeedbackTableViewDataSource, didTapScreenshot screenshot: UIImage) {
         guard let editor = editor else { return }
         guard let screenshotToEdit = self.screenshot else { return }
         
@@ -251,7 +251,7 @@ extension FeedbackViewController: FeedbackTableViewDataSourceDelegate {
     }
     
     @available(iOS 14, *)
-    func feedbackTableViewDataSourceDidRequestScreenshot(feedbackTableViewDataSource: FeedbackTableViewDataSource) {
+    func feedbackTableViewDataSourceDidRequestScreenshot(feedbackTableViewDataSource: PinpointFeedbackTableViewDataSource) {
         var configuration = PHPickerConfiguration(photoLibrary: .shared())
         configuration.filter = .images
         
@@ -262,7 +262,7 @@ extension FeedbackViewController: FeedbackTableViewDataSourceDelegate {
 }
 
 @available(iOS 14, *)
-extension FeedbackViewController: PHPickerViewControllerDelegate {
+extension PinpointFeedbackViewController: PHPickerViewControllerDelegate {
     
     public func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         guard let result = results.first else {

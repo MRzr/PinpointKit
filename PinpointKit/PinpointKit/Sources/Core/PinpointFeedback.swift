@@ -1,5 +1,5 @@
 //
-//  Feedback.swift
+//  PinpointFeedback.swift
 //  PinpointKit
 //
 //  Created by Matthew Bischoff on 2/5/16.
@@ -9,7 +9,7 @@
 import UIKit
 
 /// A struct containing user feedback on an application.
-public struct Feedback {
+public struct PinpointFeedback {
     
     /// An enum with assocated values that represents the screenshot.
     public enum ScreenshotType {
@@ -80,10 +80,10 @@ public struct Feedback {
     public let applicationInformation: ApplicationInformation?
     
     /// Specifies configurable properties for feedback.
-    public var configuration: FeedbackConfiguration
+    public var configuration: PinpointFeedbackConfiguration
     
     /**
-     Initializes a `Feedback` with optional default values.
+     Initializes a `PinpointFeedback` with optional default values.
      
      - parameter screenshot:             The type of screenshot in the feedback.
      - parameter logs:                   The logs to include in the feedback, if any.
@@ -93,7 +93,7 @@ public struct Feedback {
     public init(screenshot: ScreenshotType,
                 logs: [String]? = nil,
                 applicationInformation: ApplicationInformation? = nil,
-                configuration: FeedbackConfiguration) {
+                configuration: PinpointFeedbackConfiguration) {
         self.screenshot = screenshot
         self.logs = logs
         self.applicationInformation = applicationInformation

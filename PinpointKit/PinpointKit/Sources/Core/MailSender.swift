@@ -46,7 +46,7 @@ open class MailSender: NSObject, Sender {
         case sent
     }
     
-    private var feedback: Feedback?
+    private var feedback: PinpointFeedback?
     
     // MARK: - Sender
     
@@ -59,7 +59,7 @@ open class MailSender: NSObject, Sender {
      - parameter feedback:       The feedback to send.
      - parameter viewController: The view controller from which to present any of the sender’s necessary views.
      */
-    open func send(_ feedback: Feedback, from viewController: UIViewController?) {
+    open func send(_ feedback: PinpointFeedback, from viewController: UIViewController?) {
         self.feedback = feedback
         
         guard let viewController = viewController else { fail(with: .noViewControllerProvided); return }
@@ -94,7 +94,7 @@ open class MailSender: NSObject, Sender {
 
 private extension MFMailComposeViewController {
     
-    func attach(_ feedback: Feedback) throws {
+    func attach(_ feedback: PinpointFeedback) throws {
         setToRecipients(feedback.configuration.recipients)
         
         if let subject = feedback.configuration.title {
@@ -116,7 +116,7 @@ private extension MFMailComposeViewController {
         }
     }
     
-    func attach(_ screenshot: Feedback.ScreenshotType, screenshotFileName: String) throws {
+    func attach(_ screenshot: PinpointFeedback.ScreenshotType, screenshotFileName: String) throws {
         try attach(screenshot.preferredImage, filename: screenshotFileName + MIMEType.PNG.fileExtension)
     }
     
@@ -143,7 +143,7 @@ private extension MFMailComposeViewController {
         if let data = data {
             addAttachmentData(data, mimeType: MIMEType.JSON.rawValue, fileName: "info.json")
         } else {
-            NSLog("PinpointKit could not attach Feedback.additionalInformation because it was not valid JSON.")
+            NSLog("PinpointKit could not attach PinpointFeedback.additionalInformation because it was not valid JSON.")
         }
     }
 }

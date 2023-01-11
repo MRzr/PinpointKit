@@ -8,7 +8,7 @@
 
 import UIKit
 
-/// The custom navigation controller that PinpointKit uses to wrap the `FeedbackViewController`.
+/// The custom navigation controller that PinpointKit uses to wrap the `PinpointFeedbackViewController`.
 final class NavigationController: UINavigationController, UINavigationControllerDelegate, UIViewControllerTransitioningDelegate {
 
     // MARK: - Initializers

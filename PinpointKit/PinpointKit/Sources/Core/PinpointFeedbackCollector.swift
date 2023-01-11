@@ -1,5 +1,5 @@
 //
-//  FeedbackCollector.swift
+//  PinpointFeedbackCollector.swift
 //  PinpointKit
 //
 //  Created by Brian Capps on 2/5/16.
@@ -9,13 +9,13 @@
 import UIKit
 
 /// A protocol describing an object that can collect feedback about a screenshot.
-public protocol FeedbackCollector: class, LogSupporting, InterfaceCustomizable {
+public protocol PinpointFeedbackCollector: class, LogSupporting, InterfaceCustomizable {
     
     /// A delegate that is informed of significant events in feedback collection.
-    var feedbackDelegate: FeedbackCollectorDelegate? { get set }
+    var feedbackDelegate: PinpointFeedbackCollectorDelegate? { get set }
     
     /// Configuration properties for all feedback to be sent.
-    var feedbackConfiguration: FeedbackConfiguration? { get set }
+    var feedbackConfiguration: PinpointFeedbackConfiguration? { get set }
     
     /// The view controller that displays the feedback to collect.
     var viewController: UIViewController { get }
@@ -29,17 +29,17 @@ public protocol FeedbackCollector: class, LogSupporting, InterfaceCustomizable {
      - parameter screenshot:     The screenshot the user will be providing feedback on. If the screenshot is nil, the user will be presented with a button to select a screenshot from their photo library.
      - parameter viewController: The view controller from which to present.
      */
-    func collectFeedback(with screenshot: UIImage?, from viewController: UIViewController)
+    func collectPinpointFeedback(with screenshot: UIImage?, from viewController: UIViewController)
 }
 
-extension FeedbackCollector where Self: UIViewController {
+extension PinpointFeedbackCollector where Self: UIViewController {
     public var viewController: UIViewController {
         return self
     }
 }
 
-/// A delegate protocol that `FeedbackCollector`s use to communicate significant events in feedback collection.
-public protocol FeedbackCollectorDelegate: class {
+/// A delegate protocol that `PinpointFeedbackCollector`s use to communicate significant events in feedback collection.
+public protocol PinpointFeedbackCollectorDelegate: class {
     
     /**
      Informs the receiver that the collector has finished collecting feedback.
@@ -47,5 +47,5 @@ public protocol FeedbackCollectorDelegate: class {
      - parameter feedbackCollector: The collector which collected the feedback.
      - parameter feedback:          The feedback that was collected by the collector.
      */
-    func feedbackCollector(_ feedbackCollector: FeedbackCollector, didCollect feedback: Feedback)
+    func feedbackCollector(_ feedbackCollector: PinpointFeedbackCollector, didCollect feedback: PinpointFeedback)
 }

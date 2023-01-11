@@ -41,8 +41,8 @@ open class PinpointKit {
      - parameter body:               The default body text of the feedback.
      - parameter delegate:           A delegate that is notified of significant events.
      */
-    public convenience init(feedbackRecipients: [String], title: String? = FeedbackConfiguration.DefaultTitle, body: FeedbackConfiguration.Body? = nil, delegate: PinpointKitDelegate? = nil) {
-        let feedbackConfiguration = FeedbackConfiguration(recipients: feedbackRecipients, title: title, body: body)
+    public convenience init(feedbackRecipients: [String], title: String? = PinpointFeedbackConfiguration.DefaultTitle, body: PinpointFeedbackConfiguration.Body? = nil, delegate: PinpointKitDelegate? = nil) {
+        let feedbackConfiguration = PinpointFeedbackConfiguration(recipients: feedbackRecipients, title: title, body: body)
         let configuration = Configuration(feedbackConfiguration: feedbackConfiguration)
         
         self.init(configuration: configuration, delegate: delegate)
@@ -57,7 +57,7 @@ open class PinpointKit {
     open func show(from viewController: UIViewController, screenshot: UIImage? = Screenshotter.takeScreenshot()) {
         displayingViewController = viewController
         configuration.editor.clearAllAnnotations()
-        configuration.feedbackCollector.collectFeedback(with: screenshot, from: viewController)
+        configuration.feedbackCollector.collectPinpointFeedback(with: screenshot, from: viewController)
     }
     
     /// Presents an alert signifying the inability to compose a Mail message.
@@ -73,11 +73,11 @@ open class PinpointKit {
     }
 }
 
-// MARK: - FeedbackCollectorDelegate
+// MARK: - PinpointFeedbackCollectorDelegate
 
-extension PinpointKit: FeedbackCollectorDelegate {
+extension PinpointKit: PinpointFeedbackCollectorDelegate {
     
-    public func feedbackCollector(_ feedbackCollector: FeedbackCollector, didCollect feedback: Feedback) {
+    public func feedbackCollector(_ feedbackCollector: PinpointFeedbackCollector, didCollect feedback: PinpointFeedback) {
         delegate?.pinpointKit(self, willSend: feedback)
         configuration.sender.send(feedback, from: feedbackCollector.viewController)
     }
@@ -87,14 +87,14 @@ extension PinpointKit: FeedbackCollectorDelegate {
 
 extension PinpointKit: SenderDelegate {
     
-    public func sender(_ sender: Sender, didSend feedback: Feedback?, success: SuccessType?) {
+    public func sender(_ sender: Sender, didSend feedback: PinpointFeedback?, success: SuccessType?) {
         guard let feedback = feedback else { return }
         
         delegate?.pinpointKit(self, didSend: feedback)
         displayingViewController?.dismiss(animated: true, completion: nil)
     }
     
-    public func sender(_ sender: Sender, didFailToSend feedback: Feedback?, error: Error) {
+    public func sender(_ sender: Sender, didFailToSend feedback: PinpointFeedback?, error: Error) {
         if case MailSender.Error.mailCanceled = error { return }
         
         guard let feedback = feedback else { return }
@@ -115,7 +115,7 @@ public protocol PinpointKitDelegate: class {
      - parameter pinpointKit:   The `PinpointKit` instance responsible for the feedback.
      - parameter feedback:      The feedback that’s about to be sent.
      */
-    func pinpointKit(_ pinpointKit: PinpointKit, willSend feedback: Feedback)
+    func pinpointKit(_ pinpointKit: PinpointKit, willSend feedback: PinpointFeedback)
     
     /**
      Notifies the delegate that PinpointKit has just sent user feedback.
@@ -123,7 +123,7 @@ public protocol PinpointKitDelegate: class {
      - parameter pinpointKit:   The `PinpointKit` instance responsible for the feedback.
      - parameter feedback:      The feedback that’s just been sent.
      */
-    func pinpointKit(_ pinpointKit: PinpointKit, didSend feedback: Feedback)
+    func pinpointKit(_ pinpointKit: PinpointKit, didSend feedback: PinpointFeedback)
     
     /**
      Notifies the delegate that PinpointKit has failed to send user feedback.
@@ -132,15 +132,15 @@ public protocol PinpointKitDelegate: class {
      - parameter feedback:      The feedback that failed to send.
      - parameter error:         The error that occurred.
      */
-    func pinpointKit(_ pinpointKit: PinpointKit, didFailToSend feedback: Feedback, error: Error)
+    func pinpointKit(_ pinpointKit: PinpointKit, didFailToSend feedback: PinpointFeedback, error: Error)
 }
 
 /// An extension on `PinpointKitDelegate` that makes all delegate methods optional to implement. The `pinpointKit(_:didFailToSend:error)` implementation presents a default alert for the `MailSender.Error.mailCannotSend` error.
 public extension PinpointKitDelegate {
-    func pinpointKit(_ pinpointKit: PinpointKit, willSend feedback: Feedback) {}
-    func pinpointKit(_ pinpointKit: PinpointKit, didSend feedback: Feedback) {}
+    func pinpointKit(_ pinpointKit: PinpointKit, willSend feedback: PinpointFeedback) {}
+    func pinpointKit(_ pinpointKit: PinpointKit, didSend feedback: PinpointFeedback) {}
     
-    func pinpointKit(_ pinpointKit: PinpointKit, didFailToSend feedback: Feedback, error: Error) {
+    func pinpointKit(_ pinpointKit: PinpointKit, didFailToSend feedback: PinpointFeedback, error: Error) {
         guard case MailSender.Error.mailCannotSend = error else { return }
         
         pinpointKit.presentFailureToComposeMailAlert()

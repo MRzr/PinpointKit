@@ -1,5 +1,5 @@
 //
-//  FeedbackTableViewDataSource.swift
+//  PinpointFeedbackTableViewDataSource.swift
 //  PinpointKit
 //
 //  Created by Matthew Bischoff on 2/19/16.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-/// An object conforming to `UITableViewDataSource` that acts as the data source for a `FeedbackViewController`.
-final class FeedbackTableViewDataSource: NSObject, UITableViewDataSource {
+/// An object conforming to `UITableViewDataSource` that acts as the data source for a `PinpointFeedbackViewController`.
+final class PinpointFeedbackTableViewDataSource: NSObject, UITableViewDataSource {
     
     private let sections: [Section]
-    private weak var delegate: FeedbackTableViewDataSourceDelegate?
+    private weak var delegate: PinpointFeedbackTableViewDataSourceDelegate?
     
     /**
      Initializes the data source with a configuration and a boolean value indicating whether the user has enabled log collection.
@@ -23,7 +23,7 @@ final class FeedbackTableViewDataSource: NSObject, UITableViewDataSource {
      - parameter userEnabledLogCollection: A boolean value indicating whether the user has enabled log collection.
      - parameter delegate:                 The object informed when a screenshot is tapped.
      */
-    init(interfaceCustomization: InterfaceCustomization, screenshot: UIImage?, logSupporting: LogSupporting, userEnabledLogCollection: Bool, delegate: FeedbackTableViewDataSourceDelegate? = nil) {
+    init(interfaceCustomization: InterfaceCustomization, screenshot: UIImage?, logSupporting: LogSupporting, userEnabledLogCollection: Bool, delegate: PinpointFeedbackTableViewDataSourceDelegate? = nil) {
         sections = type(of: self).sectionsFromConfiguration(interfaceCustomization, screenshot: screenshot, logSupporting: logSupporting, userEnabledLogCollection: userEnabledLogCollection)
         self.delegate = delegate
     }
@@ -45,7 +45,7 @@ final class FeedbackTableViewDataSource: NSObject, UITableViewDataSource {
         case collectLogs(enabled: Bool, title: String, font: UIFont, canView: Bool)
     }
     
-    // MARK: - FeedbackTableViewDataSource
+    // MARK: - PinpointFeedbackTableViewDataSource
     
     private static func sectionsFromConfiguration(_ interfaceCustomization: InterfaceCustomization, screenshot: UIImage?, logSupporting: LogSupporting, userEnabledLogCollection: Bool) -> [Section] {
         var sections: [Section] = []
@@ -156,7 +156,7 @@ final class FeedbackTableViewDataSource: NSObject, UITableViewDataSource {
 }
 
 /// Delegate protocol describing a type that is informed of screenshot tapping events.
-protocol FeedbackTableViewDataSourceDelegate: class {
+protocol PinpointFeedbackTableViewDataSourceDelegate: class {
     
     /**
      Notifies the delegate when a screenshot is tapped.
@@ -164,7 +164,7 @@ protocol FeedbackTableViewDataSourceDelegate: class {
      - parameter feedbackTableViewDataSource: The feedback table view data source that sent the message.
      - parameter screenshot:                  The screenshot that was tapped.
      */
-    func feedbackTableViewDataSource(feedbackTableViewDataSource: FeedbackTableViewDataSource, didTapScreenshot screenshot: UIImage)
+    func feedbackTableViewDataSource(feedbackTableViewDataSource: PinpointFeedbackTableViewDataSource, didTapScreenshot screenshot: UIImage)
     
     /**
      Notifies the delegate that a screenshot is being requested.
@@ -172,5 +172,5 @@ protocol FeedbackTableViewDataSourceDelegate: class {
      - parameter feedbackTableViewDataSource: The feedback table view data source that sent the message.
      */
     @available(iOS 14, *)
-    func feedbackTableViewDataSourceDidRequestScreenshot(feedbackTableViewDataSource: FeedbackTableViewDataSource)
+    func feedbackTableViewDataSourceDidRequestScreenshot(feedbackTableViewDataSource: PinpointFeedbackTableViewDataSource)
 }

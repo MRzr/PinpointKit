@@ -32,12 +32,12 @@
 		4C4037E81D9EAFA000305A6E /* BoxAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4037E21D9EAFA000305A6E /* BoxAnnotationView.swift */; };
 		4C4037E91D9EAFA000305A6E /* TextAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4037E31D9EAFA000305A6E /* TextAnnotationView.swift */; };
 		4C4037EB1D9EAFC700305A6E /* UIGestureRecognizer+FailRecognizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4037EA1D9EAFC700305A6E /* UIGestureRecognizer+FailRecognizing.swift */; };
-		4C4037F21D9EB01800305A6E /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4037EC1D9EB01800305A6E /* Feedback.swift */; };
-		4C4037F31D9EB01800305A6E /* FeedbackCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4037ED1D9EB01800305A6E /* FeedbackCollector.swift */; };
-		4C4037F41D9EB01800305A6E /* FeedbackConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4037EE1D9EB01800305A6E /* FeedbackConfiguration.swift */; };
-		4C4037F51D9EB01800305A6E /* FeedbackNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4037EF1D9EB01800305A6E /* FeedbackNavigationController.swift */; };
-		4C4037F61D9EB01800305A6E /* FeedbackTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4037F01D9EB01800305A6E /* FeedbackTableViewDataSource.swift */; };
-		4C4037F71D9EB01800305A6E /* FeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4037F11D9EB01800305A6E /* FeedbackViewController.swift */; };
+		4C4037F21D9EB01800305A6E /* PinpointFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4037EC1D9EB01800305A6E /* PinpointFeedback.swift */; };
+		4C4037F31D9EB01800305A6E /* PinpointFeedbackCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4037ED1D9EB01800305A6E /* PinpointFeedbackCollector.swift */; };
+		4C4037F41D9EB01800305A6E /* PinpointFeedbackConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4037EE1D9EB01800305A6E /* PinpointFeedbackConfiguration.swift */; };
+		4C4037F51D9EB01800305A6E /* PinpointFeedbackNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4037EF1D9EB01800305A6E /* PinpointFeedbackNavigationController.swift */; };
+		4C4037F61D9EB01800305A6E /* PinpointFeedbackTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4037F01D9EB01800305A6E /* PinpointFeedbackTableViewDataSource.swift */; };
+		4C4037F71D9EB01800305A6E /* PinpointFeedbackViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4037F11D9EB01800305A6E /* PinpointFeedbackViewController.swift */; };
 		4C4037FA1D9EB02300305A6E /* CheckmarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4037F81D9EB02300305A6E /* CheckmarkCell.swift */; };
 		4C4037FB1D9EB02300305A6E /* ScreenshotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4037F91D9EB02300305A6E /* ScreenshotCell.swift */; };
 		4C4037FD1D9EB04400305A6E /* Screenshotter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4037FC1D9EB04400305A6E /* Screenshotter.swift */; };
@@ -107,12 +107,12 @@
 		4C4037E21D9EAFA000305A6E /* BoxAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BoxAnnotationView.swift; path = Core/BoxAnnotationView.swift; sourceTree = "<group>"; };
 		4C4037E31D9EAFA000305A6E /* TextAnnotationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TextAnnotationView.swift; path = Core/TextAnnotationView.swift; sourceTree = "<group>"; };
 		4C4037EA1D9EAFC700305A6E /* UIGestureRecognizer+FailRecognizing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIGestureRecognizer+FailRecognizing.swift"; path = "Core/UIGestureRecognizer+FailRecognizing.swift"; sourceTree = "<group>"; };
-		4C4037EC1D9EB01800305A6E /* Feedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Feedback.swift; path = Core/Feedback.swift; sourceTree = "<group>"; };
-		4C4037ED1D9EB01800305A6E /* FeedbackCollector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackCollector.swift; path = Core/FeedbackCollector.swift; sourceTree = "<group>"; };
-		4C4037EE1D9EB01800305A6E /* FeedbackConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackConfiguration.swift; path = Core/FeedbackConfiguration.swift; sourceTree = "<group>"; };
-		4C4037EF1D9EB01800305A6E /* FeedbackNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackNavigationController.swift; path = Core/FeedbackNavigationController.swift; sourceTree = "<group>"; };
-		4C4037F01D9EB01800305A6E /* FeedbackTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackTableViewDataSource.swift; path = Core/FeedbackTableViewDataSource.swift; sourceTree = "<group>"; };
-		4C4037F11D9EB01800305A6E /* FeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FeedbackViewController.swift; path = Core/FeedbackViewController.swift; sourceTree = "<group>"; };
+		4C4037EC1D9EB01800305A6E /* PinpointFeedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PinpointFeedback.swift; path = Core/PinpointFeedback.swift; sourceTree = "<group>"; };
+		4C4037ED1D9EB01800305A6E /* PinpointFeedbackCollector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PinpointFeedbackCollector.swift; path = Core/PinpointFeedbackCollector.swift; sourceTree = "<group>"; };
+		4C4037EE1D9EB01800305A6E /* PinpointFeedbackConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PinpointFeedbackConfiguration.swift; path = Core/PinpointFeedbackConfiguration.swift; sourceTree = "<group>"; };
+		4C4037EF1D9EB01800305A6E /* PinpointFeedbackNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PinpointFeedbackNavigationController.swift; path = Core/PinpointFeedbackNavigationController.swift; sourceTree = "<group>"; };
+		4C4037F01D9EB01800305A6E /* PinpointFeedbackTableViewDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PinpointFeedbackTableViewDataSource.swift; path = Core/PinpointFeedbackTableViewDataSource.swift; sourceTree = "<group>"; };
+		4C4037F11D9EB01800305A6E /* PinpointFeedbackViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PinpointFeedbackViewController.swift; path = Core/PinpointFeedbackViewController.swift; sourceTree = "<group>"; };
 		4C4037F81D9EB02300305A6E /* CheckmarkCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckmarkCell.swift; path = Core/CheckmarkCell.swift; sourceTree = "<group>"; };
 		4C4037F91D9EB02300305A6E /* ScreenshotCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScreenshotCell.swift; path = Core/ScreenshotCell.swift; sourceTree = "<group>"; };
 		4C4037FC1D9EB04400305A6E /* Screenshotter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Screenshotter.swift; path = Core/Screenshotter.swift; sourceTree = "<group>"; };
@@ -203,15 +203,15 @@
 		12580A4D1C654B7E00ADC01C /* Feedback */ = {
 			isa = PBXGroup;
 			children = (
-				4C4037EC1D9EB01800305A6E /* Feedback.swift */,
-				4C4037ED1D9EB01800305A6E /* FeedbackCollector.swift */,
-				4C4037F11D9EB01800305A6E /* FeedbackViewController.swift */,
-				4C4037EF1D9EB01800305A6E /* FeedbackNavigationController.swift */,
+				4C4037EC1D9EB01800305A6E /* PinpointFeedback.swift */,
+				4C4037ED1D9EB01800305A6E /* PinpointFeedbackCollector.swift */,
+				4C4037F11D9EB01800305A6E /* PinpointFeedbackViewController.swift */,
+				4C4037EF1D9EB01800305A6E /* PinpointFeedbackNavigationController.swift */,
 				4C4037FC1D9EB04400305A6E /* Screenshotter.swift */,
 				F2619BA22512C6100083286C /* RequestScreenshotCell.swift */,
 				4C4037F91D9EB02300305A6E /* ScreenshotCell.swift */,
-				4C4037EE1D9EB01800305A6E /* FeedbackConfiguration.swift */,
-				4C4037F01D9EB01800305A6E /* FeedbackTableViewDataSource.swift */,
+				4C4037EE1D9EB01800305A6E /* PinpointFeedbackConfiguration.swift */,
+				4C4037F01D9EB01800305A6E /* PinpointFeedbackTableViewDataSource.swift */,
 				4C4037F81D9EB02300305A6E /* CheckmarkCell.swift */,
 			);
 			name = Feedback;
@@ -499,9 +499,9 @@
 				4C4037D51D9EAF0D00305A6E /* Editor.swift in Sources */,
 				4C4038191D9EB11500305A6E /* StrokeLayoutManager.swift in Sources */,
 				4C4037D71D9EAF0D00305A6E /* Tool.swift in Sources */,
-				4C4037F51D9EB01800305A6E /* FeedbackNavigationController.swift in Sources */,
+				4C4037F51D9EB01800305A6E /* PinpointFeedbackNavigationController.swift in Sources */,
 				4C4037D91D9EAF1F00305A6E /* EditImageViewController.swift in Sources */,
-				4C4037F71D9EB01800305A6E /* FeedbackViewController.swift in Sources */,
+				4C4037F71D9EB01800305A6E /* PinpointFeedbackViewController.swift in Sources */,
 				4C4037CD1D9EAEBD00305A6E /* SystemLogCollector.swift in Sources */,
 				4C4038051D9EB08E00305A6E /* PinpointKit+ShakePresentation.swift in Sources */,
 				4C40381B1D9EB11E00305A6E /* SuccessType.swift in Sources */,
@@ -520,7 +520,7 @@
 				4C4037E91D9EAFA000305A6E /* TextAnnotationView.swift in Sources */,
 				4C4038061D9EB08E00305A6E /* ShakeDetectingWindow.swift in Sources */,
 				4C772569209CDBBD00269047 /* UIBarButtonItem+TitleTextAttributeStates.swift in Sources */,
-				4C4037F31D9EB01800305A6E /* FeedbackCollector.swift in Sources */,
+				4C4037F31D9EB01800305A6E /* PinpointFeedbackCollector.swift in Sources */,
 				4C4037CB1D9EAEBD00305A6E /* LogCollector.swift in Sources */,
 				4C4038171D9EB10C00305A6E /* Screen.swift in Sources */,
 				4C4038131D9EB0FB00305A6E /* BarButtonItem.swift in Sources */,
@@ -528,13 +528,13 @@
 				4C4038111D9EB0EE00305A6E /* KeyboardAvoider.swift in Sources */,
 				4C4037E41D9EAFA000305A6E /* AnnotationsView.swift in Sources */,
 				4C4037DD1D9EAF4E00305A6E /* Annotations.swift in Sources */,
-				4C4037F41D9EB01800305A6E /* FeedbackConfiguration.swift in Sources */,
+				4C4037F41D9EB01800305A6E /* PinpointFeedbackConfiguration.swift in Sources */,
 				2C5C41121C6560AD0033ED3D /* (null) in Sources */,
 				4C4037D01D9EAECF00305A6E /* MailSender.swift in Sources */,
 				4C4037E71D9EAFA000305A6E /* BlurAnnotationView.swift in Sources */,
-				4C4037F61D9EB01800305A6E /* FeedbackTableViewDataSource.swift in Sources */,
+				4C4037F61D9EB01800305A6E /* PinpointFeedbackTableViewDataSource.swift in Sources */,
 				4C4037DB1D9EAF3400305A6E /* AnnotationViewFactory.swift in Sources */,
-				4C4037F21D9EB01800305A6E /* Feedback.swift in Sources */,
+				4C4037F21D9EB01800305A6E /* PinpointFeedback.swift in Sources */,
 				4C4037FD1D9EB04400305A6E /* Screenshotter.swift in Sources */,
 				4C4037CC1D9EAEBD00305A6E /* LogSupporting.swift in Sources */,
 				4C4037EB1D9EAFC700305A6E /* UIGestureRecognizer+FailRecognizing.swift in Sources */,

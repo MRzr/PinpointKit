@@ -32,7 +32,7 @@ public struct Configuration {
     }
     
     /// A feedback collector that obtains the feedback to send.
-    let feedbackCollector: FeedbackCollector
+    let feedbackCollector: PinpointFeedbackCollector
     
     /// An editor that allows annotation of images.
     let editor: Editor
@@ -56,10 +56,10 @@ public struct Configuration {
                 interfaceText: InterfaceCustomization.InterfaceText = InterfaceCustomization.InterfaceText(),
                 logCollector: LogCollector? = SystemLogCollector(),
                 logViewer: LogViewer? = BasicLogViewController(),
-                feedbackCollector: FeedbackCollector = FeedbackNavigationController(),
+                feedbackCollector: PinpointFeedbackCollector = PinpointFeedbackNavigationController(),
                 editor: Editor = EditImageViewController(),
                 sender: Sender = MailSender(),
-                feedbackConfiguration: FeedbackConfiguration) {
+                feedbackConfiguration: PinpointFeedbackConfiguration) {
         
         self.editor = editor
         
@@ -67,15 +67,15 @@ public struct Configuration {
         
         let interfaceCustomization = InterfaceCustomization(interfaceText: interfaceText, appearance: appearance)
         
-        var newFeedbackCollector = feedbackCollector
-        newFeedbackCollector.editor = editor
-        newFeedbackCollector.interfaceCustomization = interfaceCustomization
-        newFeedbackCollector.logCollector = logCollector
-        newFeedbackCollector.logViewer = logViewer
-        newFeedbackCollector.logViewer?.interfaceCustomization = interfaceCustomization
-        newFeedbackCollector.editor?.interfaceCustomization = interfaceCustomization
-        newFeedbackCollector.feedbackConfiguration = feedbackConfiguration
+        var newPinpointFeedbackCollector = feedbackCollector
+        newPinpointFeedbackCollector.editor = editor
+        newPinpointFeedbackCollector.interfaceCustomization = interfaceCustomization
+        newPinpointFeedbackCollector.logCollector = logCollector
+        newPinpointFeedbackCollector.logViewer = logViewer
+        newPinpointFeedbackCollector.logViewer?.interfaceCustomization = interfaceCustomization
+        newPinpointFeedbackCollector.editor?.interfaceCustomization = interfaceCustomization
+        newPinpointFeedbackCollector.feedbackConfiguration = feedbackConfiguration
         
-        self.feedbackCollector = newFeedbackCollector
+        self.feedbackCollector = newPinpointFeedbackCollector
     }
 }

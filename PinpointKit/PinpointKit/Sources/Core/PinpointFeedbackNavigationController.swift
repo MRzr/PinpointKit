@@ -1,5 +1,5 @@
 //
-//  FeedbackNavigationController.swift
+//  PinpointFeedbackNavigationController.swift
 //  PinpointKit
 //
 //  Created by Matthew Bischoff on 2/19/16.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-/// A `UINavigationController` subclass that has a `FeedbackViewController` as its root view controller. Use this class as a `FeedbackCollector`.
-public final class FeedbackNavigationController: UINavigationController, FeedbackCollector {
+/// A `UINavigationController` subclass that has a `PinpointFeedbackViewController` as its root view controller. Use this class as a `PinpointFeedbackCollector`.
+public final class PinpointFeedbackNavigationController: UINavigationController, PinpointFeedbackCollector {
     
     // MARK: - InterfaceCustomizable
     
@@ -43,7 +43,7 @@ public final class FeedbackNavigationController: UINavigationController, Feedbac
         }
     }
     
-    // MARK: - FeedbackCollector
+    // MARK: - PinpointFeedbackCollector
     
     public var editor: Editor? {
         get {
@@ -54,7 +54,7 @@ public final class FeedbackNavigationController: UINavigationController, Feedbac
         }
     }
     
-    public var feedbackConfiguration: FeedbackConfiguration? {
+    public var feedbackConfiguration: PinpointFeedbackConfiguration? {
         get {
             return feedbackViewController.feedbackConfiguration
         }
@@ -63,7 +63,7 @@ public final class FeedbackNavigationController: UINavigationController, Feedbac
         }
     }
     
-    public var feedbackDelegate: FeedbackCollectorDelegate? {
+    public var feedbackDelegate: PinpointFeedbackCollectorDelegate? {
         get {
             return feedbackViewController.feedbackDelegate
         }
@@ -72,13 +72,13 @@ public final class FeedbackNavigationController: UINavigationController, Feedbac
         }
     }
     
-    // MARK: - FeedbackNavigationController
+    // MARK: - PinpointFeedbackNavigationController
 
     /// The root view controller used to collect feedback.
-    let feedbackViewController: FeedbackViewController
+    let feedbackViewController: PinpointFeedbackViewController
     
     override init(navigationBarClass: AnyClass?, toolbarClass: AnyClass?) {
-        feedbackViewController = FeedbackViewController()
+        feedbackViewController = PinpointFeedbackViewController()
         
         super.init(navigationBarClass: navigationBarClass, toolbarClass: toolbarClass)
      
@@ -91,7 +91,7 @@ public final class FeedbackNavigationController: UINavigationController, Feedbac
     
     @available(*, unavailable)
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        feedbackViewController = FeedbackViewController()
+        feedbackViewController = PinpointFeedbackViewController()
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -106,17 +106,17 @@ public final class FeedbackNavigationController: UINavigationController, Feedbac
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - FeedbackNavigationController
+    // MARK: - PinpointFeedbackNavigationController
     
     private func commonInitialization() {
         viewControllers = [feedbackViewController]
     }
 
-    // MARK: - FeedbackCollector
+    // MARK: - PinpointFeedbackCollector
     
-    public func collectFeedback(with screenshot: UIImage?, from viewController: UIViewController) {
+    public func collectPinpointFeedback(with screenshot: UIImage?, from viewController: UIViewController) {
         guard presentingViewController == nil else {
-            NSLog("Unable to present FeedbackNavigationController because it is already being presented")
+            NSLog("Unable to present PinpointFeedbackNavigationController because it is already being presented")
             return
         }
         

@@ -20,7 +20,7 @@ public protocol Sender: class {
      - parameter feedback:       The feedback to send.
      - parameter viewController: The view controller from which to present any of the sender’s necessary views.
      */
-    func send(_ feedback: Feedback, from viewController: UIViewController?)
+    func send(_ feedback: PinpointFeedback, from viewController: UIViewController?)
 }
 
 /// A delegate protocol describing an object that receives success and failure events from a `Sender`.
@@ -33,7 +33,7 @@ public protocol SenderDelegate: class {
      - parameter feedback: The feedback that was sent.
      - parameter success:  The optional type of success.
      */
-    func sender(_ sender: Sender, didSend feedback: Feedback?, success: SuccessType?)
+    func sender(_ sender: Sender, didSend feedback: PinpointFeedback?, success: SuccessType?)
     
     /**
      Notifies the receiver that the sender failed to send the feedback with a given error.
@@ -42,11 +42,11 @@ public protocol SenderDelegate: class {
      - parameter feedback: The feedback that failed to send.
      - parameter error:    The error that caused the failure.
      */
-    func sender(_ sender: Sender, didFailToSend feedback: Feedback?, error: Error)
+    func sender(_ sender: Sender, didFailToSend feedback: PinpointFeedback?, error: Error)
 }
 
 /// An extension on `PinpointKitDelegate` that makes some of the delegate methods optional by giving them empty implementations by default.
 public extension SenderDelegate {
 
-    func sender(_ sender: Sender, didFailToSend feedback: Feedback?, error: Error) { }
+    func sender(_ sender: Sender, didFailToSend feedback: PinpointFeedback?, error: Error) { }
 }
