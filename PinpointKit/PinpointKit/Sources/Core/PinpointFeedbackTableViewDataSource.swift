@@ -7,13 +7,12 @@
 //
 
 import UIKit
-
 /// An object conforming to `UITableViewDataSource` that acts as the data source for a `PinpointFeedbackViewController`.
 final class PinpointFeedbackTableViewDataSource: NSObject, UITableViewDataSource {
     
     private let sections: [Section]
     private weak var delegate: PinpointFeedbackTableViewDataSourceDelegate?
-    
+
     /**
      Initializes the data source with a configuration and a boolean value indicating whether the user has enabled log collection.
      
@@ -23,11 +22,19 @@ final class PinpointFeedbackTableViewDataSource: NSObject, UITableViewDataSource
      - parameter userEnabledLogCollection: A boolean value indicating whether the user has enabled log collection.
      - parameter delegate:                 The object informed when a screenshot is tapped.
      */
-    init(interfaceCustomization: InterfaceCustomization, screenshot: UIImage?, logSupporting: LogSupporting, userEnabledLogCollection: Bool, delegate: PinpointFeedbackTableViewDataSourceDelegate? = nil) {
+    init(interfaceCustomization: InterfaceCustomization, screenshot: UIImage?, logSupporting: LogSupporting, userEnabledLogCollection: Bool, delegate: PinpointFeedbackTableViewDataSourceDelegate? = nil, selectedCategoryIndex:Int = 0, descriptionText: String, callback:((String) -> Void)?) {
+        self.selectedCategoryIndex = selectedCategoryIndex
+        self.descriptionText = descriptionText
         sections = type(of: self).sectionsFromConfiguration(interfaceCustomization, screenshot: screenshot, logSupporting: logSupporting, userEnabledLogCollection: userEnabledLogCollection)
         self.delegate = delegate
+        self.callback = callback
+
     }
+    var selectedCategoryIndex = 0
+    var descriptionText = ""
+    var callback: ((String) -> Void)?
     
+    static let categories = ["Bug report", "Feature request", "Feedback"]
     private enum Section {
         case feedback(rows: [Row])
         
@@ -43,12 +50,21 @@ final class PinpointFeedbackTableViewDataSource: NSObject, UITableViewDataSource
         case selectScreenshot(text: String, font: UIFont)
         case screenshot(screensot: UIImage, hintText: String?, hintFont: UIFont)
         case collectLogs(enabled: Bool, title: String, font: UIFont, canView: Bool)
+        case descriptionText
+        case categoryRow(text:String)
     }
     
     // MARK: - PinpointFeedbackTableViewDataSource
     
     private static func sectionsFromConfiguration(_ interfaceCustomization: InterfaceCustomization, screenshot: UIImage?, logSupporting: LogSupporting, userEnabledLogCollection: Bool) -> [Section] {
         var sections: [Section] = []
+        
+        sections.append(Section.feedback(rows: categories.map({ text  -> Row in
+            return Row.categoryRow(text: text)
+        })))
+        
+        sections.append(Section.feedback(rows: [Row.descriptionText]))
+        
         
         if let screenshot = screenshot {
             let screenshotRow = Row.screenshot(screensot: screenshot, hintText: interfaceCustomization.interfaceText.feedbackEditHint, hintFont: interfaceCustomization.appearance.feedbackEditHintFont)
@@ -75,7 +91,7 @@ final class PinpointFeedbackTableViewDataSource: NSObject, UITableViewDataSource
     
     private func checkmarkCell(for row: Row) -> CheckmarkCell {
         let cell = CheckmarkCell()
-
+        
         guard case let .collectLogs(enabled, title, font, canView) = row else {
             assertionFailure("Found unexpected row type when creating checkmark cell.")
             return cell
@@ -107,6 +123,17 @@ final class PinpointFeedbackTableViewDataSource: NSObject, UITableViewDataSource
         return cell
     }
     
+    private func descriptionCell(for row: Row) -> UITableViewCell {
+ 
+        let cell = TextCell(style: .default, reuseIdentifier: "textCell", callback: callback, descriptionText:self.descriptionText)
+        return cell
+    }
+    private func categoryCell(for row: Row, text:String, selected:Bool) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: text)
+        cell.textLabel?.text = text
+        cell.accessoryType = selected ? .checkmark : .none
+        return cell
+    }
     private func requestScreenshotCell(for row: Row) -> UITableViewCell {
         let cell = RequestScreenshotCell()
         
@@ -114,7 +141,7 @@ final class PinpointFeedbackTableViewDataSource: NSObject, UITableViewDataSource
             assertionFailure("Found unexpected row type when creating screenshot cell.")
             return cell
         }
-                
+        
         cell.viewModel = RequestScreenshotCell.ViewModel(buttonText: text, buttonFont: font)
         cell.screenshotButtonTapHandler = { [weak self] _ in
             guard let self = self else { return }
@@ -150,6 +177,10 @@ final class PinpointFeedbackTableViewDataSource: NSObject, UITableViewDataSource
                 return screenshotCell(for: row)
             case .collectLogs:
                 return checkmarkCell(for: row)
+            case .descriptionText:
+                return descriptionCell(for: row)
+            case .categoryRow(let text):
+                return categoryCell(for: row, text: text, selected: indexPath.row == selectedCategoryIndex)
             }
         }
     }

@@ -82,6 +82,8 @@ public struct PinpointFeedback {
     /// Specifies configurable properties for feedback.
     public var configuration: PinpointFeedbackConfiguration
     
+    public let description: String
+    public let category: String
     /**
      Initializes a `PinpointFeedback` with optional default values.
      
@@ -93,10 +95,14 @@ public struct PinpointFeedback {
     public init(screenshot: ScreenshotType,
                 logs: [String]? = nil,
                 applicationInformation: ApplicationInformation? = nil,
-                configuration: PinpointFeedbackConfiguration) {
+                configuration: PinpointFeedbackConfiguration,
+                description: String,
+                category: String) {
         self.screenshot = screenshot
         self.logs = logs
         self.applicationInformation = applicationInformation
         self.configuration = configuration
+        self.description = description
+        self.category = category
     }
 }

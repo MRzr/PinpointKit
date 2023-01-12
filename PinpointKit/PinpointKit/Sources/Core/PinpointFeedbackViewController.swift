@@ -27,7 +27,18 @@ public final class PinpointFeedbackViewController: UITableViewController {
     public var logViewer: LogViewer?
     public var logCollector: LogCollector?
     public var editor: Editor?
-    
+    var callback:((String) -> Void)?
+    var selectedCategoryIndex = 0 {
+        didSet {
+            updateDataSource()
+        }
+    }
+    var descriptionText:String = ""
+    {
+        didSet {
+            updateDataSource()
+        }
+    }
     // MARK: - PinpointFeedbackCollector
     
     public weak var feedbackDelegate: PinpointFeedbackCollectorDelegate?
@@ -110,8 +121,10 @@ public final class PinpointFeedbackViewController: UITableViewController {
     private func updateDataSource() {
         guard let interfaceCustomization = interfaceCustomization else { assertionFailure(); return }
         let screenshotToDisplay = annotatedScreenshot ?? screenshot
-
-        dataSource = PinpointFeedbackTableViewDataSource(interfaceCustomization: interfaceCustomization, screenshot: screenshotToDisplay, logSupporting: self, userEnabledLogCollection: userEnabledLogCollection, delegate: self)
+        callback =  {[weak self] text in
+            self?.descriptionText = text
+        }
+        dataSource = PinpointFeedbackTableViewDataSource(interfaceCustomization: interfaceCustomization, screenshot: screenshotToDisplay, logSupporting: self, userEnabledLogCollection: userEnabledLogCollection, delegate: self, selectedCategoryIndex: self.selectedCategoryIndex, descriptionText: descriptionText,callback:callback)
     }
     
     private func updateInterfaceCustomization() {
@@ -163,11 +176,12 @@ public final class PinpointFeedbackViewController: UITableViewController {
         let logs = userEnabledLogCollection ? logCollector?.retrieveLogs() : nil
         
         let feedback: PinpointFeedback?
-        
+        let category = PinpointFeedbackTableViewDataSource.categories[selectedCategoryIndex]
+        let description = ""
         if let screenshot = annotatedScreenshot {
-            feedback = PinpointFeedback(screenshot: .annotated(image: screenshot), logs: logs, configuration: feedbackConfiguration)
+            feedback = PinpointFeedback(screenshot: .annotated(image: screenshot), logs: logs, configuration: feedbackConfiguration, description: descriptionText, category: category)
         } else if let screenshot = screenshot {
-            feedback = PinpointFeedback(screenshot: .original(image: screenshot), logs: logs, configuration: feedbackConfiguration)
+            feedback = PinpointFeedback(screenshot: .original(image: screenshot), logs: logs, configuration: feedbackConfiguration, description: descriptionText, category: category)
         } else {
             feedback = nil
         }
@@ -219,6 +233,10 @@ extension PinpointFeedbackViewController {
     }
     
     public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            self.selectedCategoryIndex = indexPath.row
+            tableView.reloadSections([indexPath.section], with: .automatic)
+        }
         userEnabledLogCollection = !userEnabledLogCollection
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
@@ -246,6 +264,7 @@ extension PinpointFeedbackViewController: PinpointFeedbackTableViewDataSourceDel
         
         let editImageViewController = NavigationController(rootViewController: editor.viewController)
         editImageViewController.view.tintColor = interfaceCustomization?.appearance.tintColor
+        editImageViewController.navigationBar.backgroundColor = UIColor.white
         editImageViewController.modalPresentationStyle = feedbackConfiguration?.presentationStyle ?? .fullScreen
         present(editImageViewController, animated: true, completion: nil)
     }
